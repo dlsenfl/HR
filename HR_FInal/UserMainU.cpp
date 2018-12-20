@@ -92,8 +92,10 @@ void __fastcall TUserMainF::btAddClick(TObject *Sender)
 
 	if(UserAddF->ShowModal() == mrOk){
 		m_pUserList->Add(UserAddF->UserInfo);
-		fnDisplayUserInfo();
+
 	}
+	fnDisplayUserInfo();
+	delete UserAddF;
 
 }
 //---------------------------------------------------------------------------
@@ -147,6 +149,7 @@ void __fastcall TUserMainF::btFindClick(TObject *Sender)
 			pUserInfo->sAddress);
 
 			mmDisplay->Lines->Add(sTemp);
+			break;
 			}
 
 	}
@@ -163,20 +166,15 @@ void __fastcall TUserMainF::btReviseClick(TObject *Sender)
 		if(UserModF==NULL){
 			UserModF = new TUserModF(NULL);
 		}
-		UserModF->UserInfo = pUserInfo;
+		UserModF->UserInfo = pUserInfo;                   //수정할 유저정보를 수정폼에 넘겨줌
 		UserModF->ShowModal();
+		m_iFindIndex = -1;
 	}
 	else{
 		ShowMessage("수정할 사용자를 검색하세요");
 	}
-
-
-
-
-
-
-
-
+	fnDisplayUserInfo();
+	delete UserModF;
 }
 //---------------------------------------------------------------------------
 
@@ -186,10 +184,13 @@ void __fastcall TUserMainF::btDeleteClick(TObject *Sender)
 
 	if(m_iFindIndex > -1){
 //		pUserInfo = (TUserInfo *)m_pUserList->Items[m_iFindIndex];
-		delete m_pUserList->Items[m_iFindIndex];
-		m_pUserList->Delete(m_iFindIndex);
-
+		delete m_pUserList->Items[m_iFindIndex];  	//리스트의 아이템[인덱스]번째의 항목이 가리키는 주소의 메모리 해제
+		m_pUserList->Delete(m_iFindIndex);          //리스트의 아이템[인덱스]번째의 항목을 삭제
+	}else{
+		ShowMessage("삭제할 사용자를 검색하세요");
 	}
+	m_iFindIndex = -1;
+	fnDisplayUserInfo();
 }
 //---------------------------------------------------------------------------
 

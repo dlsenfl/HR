@@ -163,11 +163,14 @@ void __fastcall TUserModF::btSaveClick(TObject *Sender)
 		m_pUserInfo->sSex ="¿©Áö";
 	}
 
+	m_pUserInfo->sName		= edName->Text									;
 	m_pUserInfo->sDepart	= cbDepart->Items->Strings[cbDepart->ItemIndex]	;
 	m_pUserInfo->sGrade     = cbGrade->Items->Strings[cbGrade->ItemIndex]	;
 	m_pUserInfo->sBirth     = edBirth->Text									;
 	m_pUserInfo->sPhone     = edPhone->Text									;
 	m_pUserInfo->sAddress   = edAddress->Text								;
+
+	ModalResult = mrOk;
 }
 //---------------------------------------------------------------------------
 void __fastcall TUserModF::FormClose(TObject *Sender, TCloseAction &Action)

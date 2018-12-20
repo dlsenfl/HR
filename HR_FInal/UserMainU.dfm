@@ -71,6 +71,5 @@ object UserMainF: TUserMainF
     Height = 242
     Align = alClient
     TabOrder = 1
-    ExplicitTop = 63
   end
 end
